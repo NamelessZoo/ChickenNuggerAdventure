@@ -12,6 +12,7 @@ public class TestFrame extends JFrame implements ActionListener
 {
 	private ChickenNugger test;
 	private FrenchFriedMinion minion;
+	private ArrayList<Bullet> balls;
 	private Bars bar;
 	
 	public TestFrame()
@@ -76,6 +77,10 @@ public class TestFrame extends JFrame implements ActionListener
 	{
 		test.update();
 		minion.update();
+		if(balls.get(i).getX() > getWidth() || balls.get(i).getX() < 0 || balls.get(i).getY() < 0 || balls.get(i).getY() > getHeight()) {
+				remove(balls.get(i));
+				balls.remove(balls.get(i));
+		}
 		repaint();
 	}
 }
