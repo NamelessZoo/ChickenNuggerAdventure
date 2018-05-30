@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public class ChickenNugger extends Character
 {
 	private int heal, gain;
+	private int ammo;
 
 	private boolean superMode = false;
 	private boolean jumping = false;
