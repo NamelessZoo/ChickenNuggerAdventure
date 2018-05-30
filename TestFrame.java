@@ -12,6 +12,7 @@ public class TestFrame extends JFrame implements ActionListener
 {
 	private ChickenNugger test;
 	private FrenchFriedMinion minion;
+	private ArrayList<Bullet> balls;
 	private Bars bar;
 	
 	public TestFrame()
@@ -46,6 +47,18 @@ public class TestFrame extends JFrame implements ActionListener
 					test.healed(10);
 				if (e.getKeyCode() == KeyEvent.VK_X)
 					minion.setHP(0);
+				if (e.getKeyCode() == KeyEvent.VK_T){
+					ball = new Bullet(man.getX(), man.getY()+8);
+					balls.add(ball);
+					add(ball);
+					if(!ChickenNugger.isLeft()) {
+						ball.setBX(+10);
+					}
+					if(ChickenNugger.isLeft()) {
+						ball.setBX(-10);
+					}
+				}
+					
 			}
 			
 			public void keyReleased(KeyEvent e) 
@@ -75,6 +88,13 @@ public class TestFrame extends JFrame implements ActionListener
 		test.update();
 		minion.update();
 		test.contact(minion, 10, 15);
+		for(int i = 0; i<balls.size(); i++) {
+			balls.get(i).update();
+			if(balls.get(i).getX() > getWidth() || balls.get(i).getX() < 0 || balls.get(i).getY() < 0 || balls.get(i).getY() > getHeight()) {
+				remove(balls.get(i));
+				balls.remove(balls.get(i));
+			}
+		}
 		repaint();
 	}
 }
