@@ -48,14 +48,17 @@ public class TestFrame extends JFrame implements ActionListener
 				if (e.getKeyCode() == KeyEvent.VK_X)
 					minion.setHP(0);
 				if (e.getKeyCode() == KeyEvent.VK_T){
-					ball = new Bullet(man.getX(), man.getY()+8);
-					balls.add(ball);
-					add(ball);
-					if(!ChickenNugger.isLeft()) {
-						ball.setBX(+10);
-					}
-					if(ChickenNugger.isLeft()) {
-						ball.setBX(-10);
+					if(isShooting()){
+						ball = new Bullet(man.getX(), man.getY()+8);
+						balls.add(ball);
+						add(ball);
+
+						if(!ChickenNugger.isLeft()) {
+							ball.setBX(+10);
+						}
+						if(ChickenNugger.isLeft()) {
+							ball.setBX(-10);
+						}
 					}
 				}
 					
