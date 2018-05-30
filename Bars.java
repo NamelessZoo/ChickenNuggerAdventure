@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 
 public class Bars extends JComponent
 {
-	private static int hp, ketchup;
+	private static int hp, ketchup, ammo;
 	
 	private Rectangle hpBar, ketchupBar;
 	
@@ -26,7 +26,7 @@ public class Bars extends JComponent
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		
-		Rectangle background = new Rectangle(0,0,120,40);
+		Rectangle background = new Rectangle(0,0,120,50);
 		g2.setColor(Color.BLACK);
 		g2.fill(background);
 		
@@ -37,6 +37,8 @@ public class Bars extends JComponent
 		ketchupBar = new Rectangle(10,20,getSP(),10);
 		g2.setColor(Color.RED);
 		g2.fill(ketchupBar);
+		
+		ammoBar = new Rectangle(10,30,getAmmo(),10);
 	}
 	
 	public static int getHP()
@@ -49,6 +51,11 @@ public class Bars extends JComponent
 		return ketchup;
 	}
 	
+	public static int getAmmo()
+	{
+		return ammo;
+	}
+	
 	public static void setHP(int h)
 	{
 		hp = h;
@@ -59,5 +66,8 @@ public class Bars extends JComponent
 		ketchup = s;
 	}
 	
-	
+	public static void setAmmo(int a)
+	{
+		ammo = a;
+	}
 }
