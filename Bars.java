@@ -39,6 +39,8 @@ public class Bars extends JComponent
 		g2.fill(ketchupBar);
 		
 		ammoBar = new Rectangle(10,30,getAmmo(),10);
+		g2.setColor(Color.BLUE);
+		g2.fill(ammoBar);
 	}
 	
 	public static int getHP()
