@@ -4,13 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
-public class FrenchFriedMinion extends JComponent
-{
-	private int dx = -1;
-	private int hp;
-	
+public class FrenchFriedMinion extends Character
+{	
 	private BufferedImage image = null;
 	
 	private String frenchFriedMinion = "frenchminion.PNG";
@@ -18,11 +14,12 @@ public class FrenchFriedMinion extends JComponent
 	public FrenchFriedMinion(int x, int y)
 	{
 		setLocation(x, y);
-		setSize(500,500);
-		hp = 15;
+		setDX(-1);
+		setHP(15);
 		try 
 		{
 			image = ImageIO.read(new File(frenchFriedMinion));
+			setSize(image);
 		} 
 		catch (IOException e) 
 		{
@@ -33,29 +30,24 @@ public class FrenchFriedMinion extends JComponent
 	public void paintComponent(Graphics g)
 	{
 		g.drawImage(image, 0, 0, this);
+		setSize(image);
 	}
-	
-	public int getHP()
-	{
-		return hp;
-	}
-	
-	public void setHP(int health)
-	{
-		hp = health;
-	}
-	
-	public void setDX(int x)
-	{
-		dx = x;
-	}
-	
+
 	public void update()
 	{
-		if (hp <= 0)
-			image = null;
+		if (getHP() <= 0)
+		{
+			try 
+			{
+				image = ImageIO.read(new File("CHICKENNUGGER.png"));
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 		if (getX() == 0)
-			dx = 0;
-		setLocation(getX() + dx, getY());
+			setDX(0);
+		setLocation(getX() + getDX(), getY() + getDY());
 	}
 }
