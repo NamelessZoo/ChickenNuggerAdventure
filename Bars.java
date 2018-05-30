@@ -11,12 +11,12 @@ public class Bars extends JComponent
 {
 	private static int hp, ketchup, ammo;
 	
-	private Rectangle hpBar, ketchupBar;
+	private Rectangle hpBar, ketchupBar, ammoBar;
 	
 	public Bars()
 	{
 		setLocation(600,600);
-		setSize(120,40);
+		setSize(120,50);
 		
 		hp = 100;
 		ketchup = 0;
@@ -38,7 +38,7 @@ public class Bars extends JComponent
 		g2.setColor(Color.RED);
 		g2.fill(ketchupBar);
 		
-		ammoBar = new Rectangle(10,30,getAmmo(),10);
+		ammoBar = new Rectangle(10,30,10*getAmmo(),10);
 		g2.setColor(Color.BLUE);
 		g2.fill(ammoBar);
 	}

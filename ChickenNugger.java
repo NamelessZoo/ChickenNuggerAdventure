@@ -8,12 +8,12 @@ import javax.imageio.ImageIO;
 public class ChickenNugger extends Character
 {
 	private int heal, gain;
-	private int ammo;
 
 	private boolean superMode = false;
 	private boolean jumping = false;
 	private static boolean left = false;
 	private static boolean punching = false;
+	private static boolean shooting = false;
 	
 	private int frameWidth = 1000;
 	private int frameHeight = 900;
@@ -28,6 +28,7 @@ public class ChickenNugger extends Character
 	private String chickenNuggerLeftPunch = "CHICKENNUGGERLEFTPUNCH.png";
 	private String chickenNuggerLeftSuper = "CHICKENNUGGERLEFTSUPER.png";
 	private String chickenNuggerLeftSuperPunch = "CHICKENNUGGERLEFTSUPERPUNCH.png";
+	private String chickenNuggerGun = "nuggetweapon.png";
 	
 	public ChickenNugger(int x, int y)
 	{
@@ -108,6 +109,20 @@ public class ChickenNugger extends Character
 		new Thread(new puncher()).start();
 	}
 	
+	public void shooting()
+	{
+		try 
+		{
+			shooting = true;
+			image = ImageIO.read(new File(chickenNuggerGun));
+			Bars.setAmmo(10);
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static boolean isPunching()
 	{
 		return punching;
@@ -116,6 +131,11 @@ public class ChickenNugger extends Character
 	public static boolean isLeft()
 	{
 		return left;
+	}
+	
+	public static boolean isShooting()
+	{
+		return shooting;
 	}
 	
 	public void healed(int h)
@@ -136,6 +156,18 @@ public class ChickenNugger extends Character
 			setLocation(getX(), getY() + getDY());
 		else
 			setLocation(getX() + getDX(), getY() + getDY());
+		if (isShooting() && Bars.getAmmo() == 0)
+		{
+			shooting = false;
+			try 
+			{
+				image = ImageIO.read(new File(chickenNugger));
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public class ult implements Runnable
