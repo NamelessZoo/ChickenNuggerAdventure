@@ -54,7 +54,7 @@ public class TestFrame extends JFrame implements ActionListener
 					test.shooting();
 				if (e.getKeyCode() == KeyEvent.VK_T){
 					if(ChickenNugger.isShooting()){
-						ball = new Bullet(test.getX(), test.getY()+4);
+						ball = new Bullet(test.getX()+test.getWidth(), (test.getY() + 100));
 						balls.add(ball);
 						add(ball);
 						if(!ChickenNugger.isLeft()) {

@@ -29,6 +29,7 @@ public class ChickenNugger extends Character
 	private String chickenNuggerLeftSuper = "CHICKENNUGGERLEFTSUPER.png";
 	private String chickenNuggerLeftSuperPunch = "CHICKENNUGGERLEFTSUPERPUNCH.png";
 	private String chickenNuggerGun = "nuggetweapon.png";
+	private String chickenNuggerGunLeft = "nuggetweaponleft.png";
 	
 	public ChickenNugger(int x, int y)
 	{
@@ -64,6 +65,10 @@ public class ChickenNugger extends Character
 				{
 					image = ImageIO.read(new File(chickenNuggerSuper));
 				}
+				else if (shooting)
+				{
+					image = ImageIO.read(new File(chickenNuggerGun));
+				}
 				else
 				{
 					image = ImageIO.read(new File(chickenNugger));
@@ -76,6 +81,10 @@ public class ChickenNugger extends Character
 				{
 					image = ImageIO.read(new File(chickenNuggerLeftSuper));
 				} 
+				else if (shooting)
+				{
+					image = ImageIO.read(new File(chickenNuggerGunLeft));
+				}
 				else
 				{
 					image = ImageIO.read(new File(chickenNuggerLeft));

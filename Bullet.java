@@ -33,4 +33,6 @@ public class Bullet extends JComponent
 	{
 		setLocation(getX() + dx, getY());
 	}
+	
+	public void 
 }
