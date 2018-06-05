@@ -1,29 +1,23 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-public class SweerPotato extends JComponent
+public class SweerPotato extends Character
 {
 	private int dx = 0, dy = 0;
 	
+	private BufferedImage image;
+	
 	public SweerPotato(int x, int y)
 	{
-		setLocation(x, y);
+		super(x,y);
 	}
 	
 	public void paintComponent(Graphics g)
 	{
-		
-	}
-	
-	public void setDY(int y)
-	{
-		dy = y;
-	}
-	
-	public void setDX(int x)
-	{
-		dx = x;
+		g.drawImage(image, 0, 0, this);
+		setSize(image);
 	}
 	
 	public void update()

@@ -15,6 +15,8 @@ public class ChickenNugger extends Character
 	private static boolean punching = false;
 	private static boolean shooting = false;
 	
+	private int jumpBase;
+	
 	private int frameWidth = 1000;
 	private int frameHeight = 900;
 	
@@ -98,10 +100,11 @@ public class ChickenNugger extends Character
 		}
 	}
 	
-	public void jumping()
+	public void jumping(int j)
 	{
 		if (!jumping)
 		{
+			jumpBase = j;
 			new Thread(new jumper()).start();
 		}
 	}
@@ -192,6 +195,8 @@ public class ChickenNugger extends Character
 				e.printStackTrace();
 			}
 		}
+		if (jumping && getY() >= jumpBase)
+			setDY(0);
 	}
 	
 	public class ult implements Runnable
@@ -228,13 +233,12 @@ public class ChickenNugger extends Character
 		{
 			try
 			{
-				jumping = true;
 				for(int i = -5; i <= 5; i++)
 				{
-					setDY(i); 
+					setDY(i);
 					Thread.sleep(200 - 30*Math.abs(i));
+					jumping = true;
 				}
-				setDY(0);
 				jumping = false;
 			}
 			catch (Exception e)

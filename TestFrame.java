@@ -42,7 +42,7 @@ public class TestFrame extends JFrame implements ActionListener
 			public void keyPressed(KeyEvent e)
 			{
 				if (e.getKeyCode() == KeyEvent.VK_SPACE)
-					test.jumping();
+					test.jumping(200);
 				if (e.getKeyCode() == KeyEvent.VK_A)
 					test.setDX(-3);
 				if (e.getKeyCode() == KeyEvent.VK_D)
