@@ -195,7 +195,7 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()) && getY() > Platform.getPlatforms().get(i).getY() && getX() >= Platform.getPlatforms().get(i).getX())
+			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()) && getY() >= Platform.getPlatforms().get(i).getY() + getHeight() && getX() >= Platform.getPlatforms().get(i).getX())
 			{
 				setDY(0);
 				jumping = false;
