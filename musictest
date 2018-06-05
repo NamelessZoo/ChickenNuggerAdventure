@@ -1,0 +1,35 @@
+import sun.audio.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+
+public class Sound {
+  public static void main(String[] args){
+  JFrame frame = new JFrame();
+  frame.setSize(500,500);
+  JButton button = new JButton("Begin);
+  frame.add(button);
+  button.addActionListener(new ActionListener(){
+    public void actionPerformed(ActionEvent arg0){
+      music();
+     }
+  });
+  frame.show(true);
+    
+  public static void music(){
+    AudioPlayer MGP = AudioPlayer.player;
+    AudioStream BGM;
+    AudioData MD;
+    ContinuousAudioDataStream loop = null;
+    
+    try{
+      BGM = new AudioStream(new FileInputStream("ChickenNugger.wav"));
+      MD = BGM.getData();
+      loop = new ContinuousAudioDataStream(MD);
+    }
+    catch(IOException e){}
+    
+    MGP.start(loop);
+  }
+}
+}
