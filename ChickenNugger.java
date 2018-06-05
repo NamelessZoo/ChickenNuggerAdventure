@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -14,8 +15,6 @@ public class ChickenNugger extends Character
 	private static boolean left = false;
 	private static boolean punching = false;
 	private static boolean shooting = false;
-	
-	private int jumpBase;
 	
 	private int frameWidth = 1000;
 	private int frameHeight = 900;
@@ -100,11 +99,10 @@ public class ChickenNugger extends Character
 		}
 	}
 	
-	public void jumping(int j)
+	public void jumping()
 	{
 		if (!jumping)
 		{
-			jumpBase = j;
 			new Thread(new jumper()).start();
 		}
 	}
@@ -195,8 +193,14 @@ public class ChickenNugger extends Character
 				e.printStackTrace();
 			}
 		}
-		if (jumping && getY() >= jumpBase)
-			setDY(0);
+		for (int i = 0; i < Platform.getPlatforms().size(); i++)
+		{
+			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()))
+			{
+				setDY(0);
+				jumping = false;
+			}
+		}
 	}
 	
 	public class ult implements Runnable
@@ -236,7 +240,7 @@ public class ChickenNugger extends Character
 				for(int i = -5; i <= 5; i++)
 				{
 					setDY(i);
-					Thread.sleep(200 - 30*Math.abs(i));
+					Thread.sleep(200 - 20*Math.abs(i));
 					jumping = true;
 				}
 				jumping = false;
