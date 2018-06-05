@@ -12,7 +12,7 @@ public class SoundClipTest extends JFrame {
       this.setVisible(true);
    
       try {
-         AudioInputStream audioIn = AudioSystem.getAudioInputStream(new FileInputStream("ChickenNugger.wav"));
+         AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("ChickenNugger.wav"));
          Clip clip = AudioSystem.getClip();
          clip.open(audioIn);
          clip.start();
