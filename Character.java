@@ -1,20 +1,25 @@
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
 public abstract class Character extends JComponent
 {
 	private int dx, dy;
-	private static int damageUser, damageGetter;
 	
 	private int hp;
 	
-	private Character two;
+	private static ArrayList<Character> two = new ArrayList<Character>();
+	private static ArrayList<Integer> damageUsers = new ArrayList<Integer>();
+	private static ArrayList<Integer> damageGetters = new ArrayList<Integer>();
 	
 	private Rectangle2D size;
 	
-	private boolean takingDamage = false;
+	public Character(int x, int y)
+	{
+		setLocation(x,y);
+	}
 	
 	public void setSize(BufferedImage image)
 	{
@@ -59,9 +64,9 @@ public abstract class Character extends JComponent
 	
 	public void contact(Character b, int d1, int d2)
 	{
-		two = b;
-		damageUser = d1;
-		damageGetter = d2;
+		two.add(b);
+		damageUsers.add(d1);
+		damageGetters.add(d2);
 		new Thread(new contact()).start();
 	}
 	
@@ -71,47 +76,46 @@ public abstract class Character extends JComponent
 		{
 			try
 			{
-				if (ChickenNugger.isPunching() && getRect().intersects(two.getRect()) && getX() < two.getX() && !ChickenNugger.isLeft())
+				for (int i = 0; i < two.size(); i++)
 				{
-					two.setDX(3);
-					Thread.sleep(250);
-					two.setHP(getHP() - damageGetter);
-				}
-				else if (ChickenNugger.isPunching() && getRect().intersects(two.getRect()) && getX() > two.getX() && ChickenNugger.isLeft())
-				{
-					two.setDX(-3);
-					Thread.sleep(250);
-					two.setHP(getHP() - damageGetter);
-				}
-				else if (getRect().intersects(two.getRect()) && getX() < two.getX() && getDX() >= 0)
-				{
-					setDX(-3);
-					two.setDX(3);
-					takingDamage = true;
-					for (int i = 0; i < damageUser; i++)
+					if (ChickenNugger.isPunching() && getRect().intersects(two.get(i).getRect()) && getX() < two.get(i).getX() && !ChickenNugger.isLeft())
 					{
-						Bars.setHP(Bars.getHP() - 1);
-						Thread.sleep(25);
+						two.get(i).setDX(3);
+						Thread.sleep(250);
+						two.get(i).setHP(getHP() - damageGetters.get(i).intValue());
 					}
-					takingDamage = false;
-					Thread.sleep(500);
-					setDX(0);
-					two.setDX(-1);
-				}
-				else if (getRect().intersects(two.getRect()) && getX() > two.getX() && getDX() <= 0)
-				{
-					setDX(3);
-					two.setDX(-3);
-					takingDamage = true;
-					for (int i = 0; i < damageUser; i++)
+					else if (ChickenNugger.isPunching() && getRect().intersects(two.get(i).getRect()) && getX() > two.get(i).getX() && ChickenNugger.isLeft())
 					{
-						Bars.setHP(Bars.getHP() - 1);
-						Thread.sleep(25);
+						two.get(i).setDX(-3);
+						Thread.sleep(250);
+						two.get(i).setHP(getHP() - damageGetters.get(i).intValue());
 					}
-					takingDamage = false;
-					Thread.sleep(500);
-					setDX(0);
-					two.setDX(-1);
+					else if (getRect().intersects(two.get(i).getRect()) && getX() < two.get(i).getX() && getDX() >= 0)
+					{
+						setDX(-3);
+						two.get(i).setDX(3);
+						for (int j = 0; j < damageUsers.get(i).intValue(); j++)
+						{
+							Bars.setHP(Bars.getHP() - 1);
+							Thread.sleep(25);
+						}
+						Thread.sleep(500);
+						setDX(0);
+						two.get(i).setDX(-1);
+					}
+					else if (getRect().intersects(two.get(i).getRect()) && getX() > two.get(i).getX() && getDX() <= 0)
+					{
+						setDX(3);
+						two.get(i).setDX(-3);
+						for (int j = 0; j < damageUsers.get(i).intValue(); j++)
+						{
+							Bars.setHP(Bars.getHP() - 1);
+							Thread.sleep(25);
+						}
+						Thread.sleep(500);
+						setDX(0);
+						two.get(i).setDX(-1);
+					}
 				}
 			}
 			catch (Exception e)

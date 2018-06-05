@@ -13,7 +13,7 @@ public class FrenchFriedMinion extends Character
 	
 	public FrenchFriedMinion(int x, int y)
 	{
-		setLocation(x, y);
+		super(x,y);
 		setDX(-1);
 		setHP(15);
 		try 

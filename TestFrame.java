@@ -12,24 +12,31 @@ import javax.swing.Timer;
 public class TestFrame extends JFrame implements ActionListener
 {
 	private ChickenNugger test;
-	private FrenchFriedMinion minion;
+	private FrenchFriedMinion french;
 	private Bullet ball;
 	private ArrayList<Bullet> balls;
 	private Bars bar;
+	private HireWireJugggler juggler;
+	private SweerPotatoMinion sweet;
 	
 	public TestFrame()
 	{
 		setBounds(0,0,1920,1080);
 		test = new ChickenNugger(0,200);
-		minion = new FrenchFriedMinion(1000,156);
+		french = new FrenchFriedMinion(1000,156);
 		bar = new Bars();
 		balls = new ArrayList<Bullet>();
+		juggler = new HireWireJugggler(500,250);
+		sweet = new SweerPotatoMinion(1100,156);
 		setLayout(null);
 		add(test);
-		add(minion);
+		add(french);
 		add(bar);
+		add(juggler);
+		add(sweet);
 		Timer timer = new Timer(10,this);
 		timer.start();
+		juggler.animate();
 		addKeyListener(new KeyListener()
 		{
 			public void keyPressed(KeyEvent e)
@@ -49,7 +56,7 @@ public class TestFrame extends JFrame implements ActionListener
 				if (e.getKeyCode() == KeyEvent.VK_C)
 					test.healed(10);
 				if (e.getKeyCode() == KeyEvent.VK_X)
-					minion.setHP(0);
+					french.setHP(0);
 				if (e.getKeyCode() == KeyEvent.VK_G)
 					test.shooting();
 				if (e.getKeyCode() == KeyEvent.VK_T){
@@ -94,11 +101,18 @@ public class TestFrame extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent arg0)
 	{
 		test.update();
-		minion.update();
-		test.contact(minion, 10, 15);
-		for(int i = 0; i<balls.size(); i++) {
+		french.update();
+		juggler.update();
+		sweet.update();
+		test.contact(french, 10, 15);
+		test.contact(sweet, 15, 15);
+		for(int i = 0; i<balls.size(); i++) 
+		{
 			balls.get(i).update();
-			if(balls.get(i).getX() > getWidth() || balls.get(i).getX() < 0 || balls.get(i).getY() < 0 || balls.get(i).getY() > getHeight()) {
+			balls.get(i).damage(french);
+			balls.get(i).damage(sweet);
+			if(balls.get(i).getX() > getWidth() || balls.get(i).getX() < 0 || balls.get(i).getY() < 0 || balls.get(i).getY() > getHeight()) 
+			{
 				remove(balls.get(i));
 				balls.remove(balls.get(i));
 			}

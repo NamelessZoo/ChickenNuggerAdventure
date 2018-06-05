@@ -1,33 +1,43 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-public class SweerPotatoMinion extends JComponent
+public class SweerPotatoMinion extends Character
 {
-	private int dx = 0, dy = 0;
+	private boolean alive = true;
+	
+	private BufferedImage image;
+	
+	private String sweerPotatoMinion = "SweetPotatominion.jpg";
 	
 	public SweerPotatoMinion(int x, int y)
 	{
-		setLocation(x, y);
+		super(x,y);
+		try
+		{
+			image = ImageIO.read(new File(sweerPotatoMinion));
+			setSize(image);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		setHP(20);
+		setDX(-2);
+		alive = true;
 	}
 	
 	public void paintComponent(Graphics g)
 	{
-		
-	}
-	
-	public void setDY(int y)
-	{
-		dy = y;
-	}
-	
-	public void setDX(int x)
-	{
-		dx = x;
+		g.drawImage(image, 0, 0, this);
+		setSize(image);
 	}
 	
 	public void update()
 	{
-		setLocation(getX() + dx, getY() + dy);
+		setLocation(getX() + getDX(), getY() + getDY());
 	}
 }

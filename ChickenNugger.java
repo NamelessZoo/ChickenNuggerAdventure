@@ -30,10 +30,11 @@ public class ChickenNugger extends Character
 	private String chickenNuggerLeftSuperPunch = "CHICKENNUGGERLEFTSUPERPUNCH.png";
 	private String chickenNuggerGun = "nuggetweapon.png";
 	private String chickenNuggerGunLeft = "nuggetweaponleft.png";
+	private String chickenNuggerDead = "deadnugget.jpg";
 	
 	public ChickenNugger(int x, int y)
 	{
-		setLocation(x, y);
+		super(x,y);
 		super.setDX(0);
 		super.setDY(0);
 		try 
@@ -122,9 +123,12 @@ public class ChickenNugger extends Character
 	{
 		try 
 		{
-			shooting = true;
-			image = ImageIO.read(new File(chickenNuggerGun));
-			Bars.setAmmo(10);
+			if (!superMode)
+			{
+				shooting = true;
+				image = ImageIO.read(new File(chickenNuggerGun));
+				Bars.setAmmo(10);
+			}
 		} 
 		catch (IOException e) 
 		{
@@ -177,6 +181,17 @@ public class ChickenNugger extends Character
 				e.printStackTrace();
 			}
 		}
+		if (Bars.getHP() <= 0)
+		{
+			try 
+			{
+				image = ImageIO.read(new File(chickenNuggerDead));
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public class ult implements Runnable
@@ -185,15 +200,18 @@ public class ChickenNugger extends Character
 		{
 			try
 			{
-				superMode = true;
-				image = ImageIO.read(new File(chickenNuggerSuper));
-				for (int i = 1; i <= 100; i++)
+				if (!shooting)
 				{
-					Bars.setSP(100-i);
-					Thread.sleep(100);
+					superMode = true;
+					image = ImageIO.read(new File(chickenNuggerSuper));
+					for (int i = 1; i <= 100; i++)
+					{
+						Bars.setSP(100-i);
+						Thread.sleep(100);
+					}
+					image = ImageIO.read(new File(chickenNugger));
+					superMode = false;
 				}
-				image = ImageIO.read(new File(chickenNugger));
-				superMode = false;
 			}
 			catch (Exception e)
 			{
@@ -235,29 +253,32 @@ public class ChickenNugger extends Character
 			try
 			{
 				punching = true;
-				if (superMode && left)
+				if (!shooting)
 				{
-					image = ImageIO.read(new File(chickenNuggerLeftSuperPunch));
-					Thread.sleep(200);
-					image = ImageIO.read(new File(chickenNuggerLeftSuper));
-				}
-				else if (superMode)
-				{
-					image = ImageIO.read(new File(chickenNuggerSuperPunch));
-					Thread.sleep(200);
-					image = ImageIO.read(new File(chickenNuggerSuper));
-				}
-				else if (left)
-				{
-					image = ImageIO.read(new File(chickenNuggerLeftPunch));
-					Thread.sleep(200);
-					image = ImageIO.read(new File(chickenNuggerLeft));
-				}
-				else
-				{
-					image = ImageIO.read(new File(chickenNuggerPunch));
-					Thread.sleep(200);
-					image = ImageIO.read(new File(chickenNugger));
+					if (superMode && left)
+					{
+						image = ImageIO.read(new File(chickenNuggerLeftSuperPunch));
+						Thread.sleep(200);
+						image = ImageIO.read(new File(chickenNuggerLeftSuper));
+					}
+					else if (superMode)
+					{
+						image = ImageIO.read(new File(chickenNuggerSuperPunch));
+						Thread.sleep(200);
+						image = ImageIO.read(new File(chickenNuggerSuper));
+					}
+					else if (left)
+					{
+						image = ImageIO.read(new File(chickenNuggerLeftPunch));
+						Thread.sleep(200);
+						image = ImageIO.read(new File(chickenNuggerLeft));
+					}
+					else
+					{
+						image = ImageIO.read(new File(chickenNuggerPunch));
+						Thread.sleep(200);
+						image = ImageIO.read(new File(chickenNugger));
+					}
 				}
 				Thread.sleep(500);
 				punching = false;
