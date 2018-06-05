@@ -10,6 +10,7 @@ public class HireWireJugggler extends Character
 	private int hp;
 	
 	private boolean alive = false;
+	private static boolean dropping = false;
 	
 	private BufferedImage image;
 	
@@ -22,6 +23,8 @@ public class HireWireJugggler extends Character
 	public HireWireJugggler(int x, int y)
 	{
 		super(x,y);
+		super.setDX(1250);
+		super.setDY(600);
 		try
 		{
 			image = ImageIO.read(new File(pic1));
@@ -70,6 +73,25 @@ public class HireWireJugggler extends Character
 					Thread.sleep(200);
 					image = ImageIO.read(new File(pic5));
 					Thread.sleep(200);
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				new Thread(this).start();
+				System.exit(0);
+			}
+		}
+	}
+	public class dropping implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				while(alive)
+				{
+					
 				}
 			}
 			catch (Exception e)
