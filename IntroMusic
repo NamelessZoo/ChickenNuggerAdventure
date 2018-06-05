@@ -3,9 +3,9 @@ import java.net.URL;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-public class SoundClipTest extends JFrame {
+public class IntroMusic extends JFrame {
    
-   public SoundClipTest() {
+   public IntroMusic() {
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       this.setTitle("Test Music");
       this.setSize(300, 200);
@@ -26,6 +26,6 @@ public class SoundClipTest extends JFrame {
    }
    
    public static void main(String[] args) {
-      new SoundClipTest();
+      new IntroMusic();
    }
 }
