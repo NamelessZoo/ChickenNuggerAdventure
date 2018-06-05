@@ -27,15 +27,20 @@ public class MasterFrame extends JFrame implements ActionListener
 	private PttoFrmCtrl pfc;
 	private PotatoFarmLvl pfl;
 	private ChickenNugger player;
+	private Bars bar;
+	private ArrayList<Bullet> balls;
 	
 	
 	public MasterFrame() 
 	{
 		
-		timer = new Timer(10, this);
+		timer = new Timer(1000/60, this);
 		
 		setLayout(null);
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		bar = new Bars();
+//		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setSize(1366, 768);
+		setLocation((int)ssw/2 - getWidth() / 2, (int)ssh/2 - getHeight()/2);
 		setUndecorated(true);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -87,16 +92,19 @@ public class MasterFrame extends JFrame implements ActionListener
 		repaint();
 	}
 	public void pttoFrmCtrlSchm()
-	{
-		add(player);
-		player.setLocation(0, getHeight() - pfl.getBL().getHeight() - player.getHeight() + 1);
+	{	
+// getHeight() - pfl.getBL().getHeight() - player.getHeight() + 1
 		tut.setVisible(false);
-		pfc = new PttoFrmCtrl(pfl, this);
-		addKeyListener(pfc);
 		pfl = new PotatoFarmLvl(this);
 		current = pfl;
 		add(pfl);
+		player = pfl.getPlayer();
 		pfl.setVisible(true);
+
+		pfc = new PttoFrmCtrl(pfl, this);
+		addKeyListener(pfc);
+		
+		
 
 	}
 	
