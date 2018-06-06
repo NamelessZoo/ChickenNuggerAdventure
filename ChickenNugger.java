@@ -42,11 +42,24 @@ public class ChickenNugger extends Character
 		{
 			image = ImageIO.read(new File(chickenNugger));
 			setSize(image);
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
+         		Clip clip = AudioSystem.getClip();
+         		clip.open(audioIn);
+         		clip.start();
+        		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
+      		catch (UnsupportedAudioFileException e) 
+		{
+         		e.printStackTrace();
+      		} 
+		catch (LineUnavailableException e) 
+		{
+         		e.printStackTrace();
+      		}
 	}
 	
 	public void paintComponent(Graphics g)
