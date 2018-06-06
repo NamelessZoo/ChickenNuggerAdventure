@@ -177,10 +177,6 @@ public class ChickenNugger extends Character
 	
 	public void update()
 	{
-		if ((getX() <= 0 && getDX() < 0) || (getX() >= frameWidth && getDX() > 0))
-			setLocation(getX(), getY() + getDY());
-		else
-			setLocation(getX() + getDX(), getY() + getDY());
 		if (isShooting() && Bars.getAmmo() == 0)
 		{
 			shooting = false;
@@ -206,15 +202,17 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() > 0 && getX() < Platform.getPlatforms().get(i).getRect().getX())))
-				setDX(-1);
-			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() < 0 && getX() > Platform.getPlatforms().get(i).getRect().getX())))	
-				setDX(1);
 			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())))
 				setDY(0);
+			else if (!jumping)
+				setDY(2);
 			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
 				setDY(0);
 		}
+		if ((getX() <= 0 && getDX() < 0) || (getX() >= frameWidth && getDX() > 0))
+			setLocation(getX(), getY() + getDY());
+		else
+			setLocation(getX() + getDX(), getY() + getDY());
 	}
 	
 	public class ult implements Runnable
