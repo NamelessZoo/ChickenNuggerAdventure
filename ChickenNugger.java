@@ -221,7 +221,10 @@ public class ChickenNugger extends Character
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
 			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())))
+			{
 				setDY(0);
+				jumping = false;
+			}
 			else if (!jumping)
 				setDY(2);
 			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
@@ -270,8 +273,11 @@ public class ChickenNugger extends Character
 				jumping = true;
 				for(int i = -5; i <= 5; i++)
 				{
-					setDY(i);
-					Thread.sleep(200 - 20*Math.abs(i));
+					if (jumping)
+					{
+						setDY(i);
+						Thread.sleep(200 - 20*Math.abs(i));
+					}
 				}
 				jumping = false;
 			}
