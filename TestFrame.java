@@ -18,6 +18,7 @@ public class TestFrame extends JFrame implements ActionListener
 	private Bars bar;
 	private HireWireJugggler juggler;
 	private SweerPotatoMinion sweet;
+	private SweerPotato sweeter;
 	
 	public TestFrame()
 	{
@@ -28,16 +29,19 @@ public class TestFrame extends JFrame implements ActionListener
 		balls = new ArrayList<Bullet>();
 		juggler = new HireWireJugggler(500,250);
 		sweet = new SweerPotatoMinion(1100,156);
+		sweeter = new SweerPotato(1200,100);
 		setLayout(null);
 		add(test);
 		add(french);
 		add(bar);
 		add(juggler);
 		add(sweet);
+		add(sweeter);
 		Timer timer = new Timer(10,this);
 		timer.start();
 		juggler.animate();
 		juggler.bombDrop(this);
+		sweeter.shoot(this);
 		addKeyListener(new KeyListener()
 		{
 			public void keyPressed(KeyEvent e)
@@ -99,8 +103,16 @@ public class TestFrame extends JFrame implements ActionListener
 		french.update();
 		juggler.update();
 		sweet.update();
-		test.contact(french, 10, 15);
-		test.contact(sweet, 15, 15);
+		if (test.isSuper())
+		{
+			test.contact(french, 10, 25);
+			test.contact(sweet, 15, 25);
+		}
+		else
+		{
+			test.contact(french, 10, 15);
+			test.contact(sweet, 15, 15);
+		}
 		for(int i = 0; i<balls.size(); i++) 
 		{
 			balls.get(i).update();
@@ -119,6 +131,15 @@ public class TestFrame extends JFrame implements ActionListener
 			{
 				remove(juggler.getBombs().get(i));
 				juggler.getBombs().remove(i);
+			}
+		}
+		for (int i = 0; i < sweeter.getBullets().size(); i++)
+		{
+			sweeter.getBullets().get(i).update();
+			if(sweeter.getBullets().get(i).damage(test))
+			{
+				remove(sweeter.getBullets().get(i));
+				sweeter.getBullets().remove(i);
 			}
 		}
 		repaint();

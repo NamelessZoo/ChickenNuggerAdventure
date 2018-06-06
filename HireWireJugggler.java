@@ -15,8 +15,6 @@ public class HireWireJugggler extends Character
 	private Bomb bomb;
 	private JFrame frame;
 	
-	private ChickenNugger target;
-	
 	private BufferedImage image;
 	
 	private String pic1 = "hwj.png";

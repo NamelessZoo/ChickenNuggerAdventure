@@ -45,11 +45,39 @@ public class SweerPotato extends Character
 	public void shoot(JFrame good)
 	{
 		frame = good;
-		new Thread(new )
+		new Thread(new shoot()).start();
+	}
+
+	public ArrayList<PotatoBullets> getBullets()
+	{
+		return bullets;
 	}
 	
 	public void update()
 	{
 		setLocation(getX() + getDX(), getY() + getDY());
+	}
+	
+	public class shoot implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				while(alive)
+				{
+					Thread.sleep((int)(1000*Math.random() + 1));
+					bullet = new PotatoBullets(getX() + 200, getY() + 25);
+					bullets.add(bullet);
+					frame.add(bullet);
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				new Thread(this).start();
+				System.exit(0);
+			}
+		}
 	}
 }

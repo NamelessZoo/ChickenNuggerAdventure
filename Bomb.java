@@ -68,7 +68,7 @@ public class Bomb extends JComponent
 				if(getRect().intersects(target.getRect()))
 				{
 					damaged = true;
-					for (int i = 0; i < 15; i++)
+					for (int i = 0; i < 25; i++)
 					{
 						Bars.setHP(Bars.getHP() - 1);
 						Thread.sleep(25);

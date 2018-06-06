@@ -42,24 +42,11 @@ public class ChickenNugger extends Character
 		{
 			image = ImageIO.read(new File(chickenNugger));
 			setSize(image);
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
-         		Clip clip = AudioSystem.getClip();
-         		clip.open(audioIn);
-         		clip.start();
-        		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-      		catch (UnsupportedAudioFileException e) 
-		{
-         		e.printStackTrace();
-      		} 
-		catch (LineUnavailableException e) 
-		{
-         		e.printStackTrace();
-      		}
 	}
 	
 	public void paintComponent(Graphics g)
@@ -110,6 +97,11 @@ public class ChickenNugger extends Character
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean isSuper()
+	{
+		return superMode;
 	}
 	
 	public void jumping()
@@ -214,11 +206,10 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()) && getY() <= Platform.getPlatforms().get(i).getY() + getHeight() && getX() >= Platform.getPlatforms().get(i).getX())
-			{
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() > 0 && getX() < Platform.getPlatforms().get(i).getRect().getX())||(getDX() < 0 && getX() > Platform.getPlatforms().get(i).getRect().getX())))
+				setDX(0);
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())||(getDX() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
 				setDY(0);
-				jumping = false;
-			}
 		}
 	}
 	
@@ -256,11 +247,11 @@ public class ChickenNugger extends Character
 		{
 			try
 			{
+				jumping = true;
 				for(int i = -5; i <= 5; i++)
 				{
 					setDY(i);
 					Thread.sleep(200 - 5*Math.abs(i));
-					jumping = true;
 				}
 				jumping = false;
 			}
