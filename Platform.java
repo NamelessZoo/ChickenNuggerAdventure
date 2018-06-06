@@ -18,7 +18,6 @@ public class Platform extends JLabel
 	
 	public Platform(int x, int y)
 	{
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("platform image.jpg"));
@@ -39,8 +38,6 @@ public class Platform extends JLabel
 	
 	public Platform(int x, int y, int x1)
 	{
-		super();
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("platform image.jpg"));
@@ -52,15 +49,14 @@ public class Platform extends JLabel
 		ImageIcon image1 = new ImageIcon(image);
 //		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
 		setBounds(x, y, x1, 92);
+		size = new Rectangle2D.Double(getX(), getY(), image.getWidth(), image.getHeight());
+		platforms.add(this);
 		setVisible(true);
 		setIcon(image1);
-		platforms.add(this);
 	}
 	
 	public Platform(int x, int y, String yeahboi)
 	{
-		super();
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("cityplat.png"));
@@ -72,15 +68,14 @@ public class Platform extends JLabel
 		ImageIcon image1 = new ImageIcon(image);
 //		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
 		setBounds(x, y, image.getWidth(), image.getHeight());
+		size = new Rectangle2D.Double(getX(), getY(), image.getWidth(), image.getHeight());
+		platforms.add(this);
 		setVisible(true);
 		setIcon(image1);
-		platforms.add(this);
 	}
 	
 	public Platform(int x, int y, int x1, int yeahboi)
 	{
-		super();
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("cityplat.png"));
@@ -92,9 +87,10 @@ public class Platform extends JLabel
 		ImageIcon image1 = new ImageIcon(image);
 //		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
 		setBounds(x, y, x1, image.getHeight());
+		size = new Rectangle2D.Double(getX(), getY(), image.getWidth(), image.getHeight());
+		platforms.add(this);
 		setVisible(true);
 		setIcon(image1);
-		platforms.add(this);
 	}
 	
 	public Rectangle2D getRect()
