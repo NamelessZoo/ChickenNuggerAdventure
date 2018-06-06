@@ -52,6 +52,8 @@ public class Platform extends JLabel
 
 //		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
 		setBounds(x, y, x1, y1);
+		size = new Rectangle2D.Double(getX(), getY(), image.getWidth(), image.getHeight());
+		platforms.add(this);
 		setVisible(true);
 		setIcon((Icon)image);
 	}
