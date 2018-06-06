@@ -3,6 +3,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 import javax.imageio.ImageIO;
 
@@ -42,6 +46,19 @@ public class ChickenNugger extends Character
 		{
 			image = ImageIO.read(new File(chickenNugger));
 			setSize(image);
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
+         		Clip clip = AudioSystem.getClip();
+         		clip.open(audioIn);
+         		clip.start();
+        		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		} 
+      		catch (UnsupportedAudioFileException e) 
+		{
+         		e.printStackTrace();
+      		} 
+		catch (LineUnavailableException e) 
+		{
+         		e.printStackTrace();
 		} 
 		catch (IOException e) 
 		{
