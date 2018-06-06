@@ -18,7 +18,6 @@ public class Platform extends JLabel
 	
 	public Platform(int x, int y)
 	{
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("platform image.jpg"));
@@ -39,8 +38,6 @@ public class Platform extends JLabel
 	
 	public Platform(int x, int y, int x1, int y1)
 	{
-		super();
-		image = null;
 		try
 		{
 			image = ImageIO.read(new File("platform image.jpg"));
