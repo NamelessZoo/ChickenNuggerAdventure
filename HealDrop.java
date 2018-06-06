@@ -10,7 +10,7 @@ public class HealDrop extends Item
 {	
 private BufferedImage image;
 	
-	private String gunDrop = "toygun.png";
+	private String gunDrop = "healpotion.png";
 	
 	private Rectangle2D size;
 	

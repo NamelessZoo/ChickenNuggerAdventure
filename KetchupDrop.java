@@ -10,7 +10,7 @@ public class KetchupDrop extends Item
 {	
 private BufferedImage image;
 	
-	private String gunDrop = "toygun.png";
+	private String gunDrop = "ketchup.png";
 	
 	private Rectangle2D size;
 	

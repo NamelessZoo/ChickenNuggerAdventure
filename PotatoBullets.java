@@ -9,11 +9,13 @@ import javax.swing.JComponent;
 
 public class PotatoBullets extends JComponent
 {
-	private int dx = -2;
+	private int dx = -5;
 	
 	private BufferedImage image;
 	private Rectangle2D size;
 	private ChickenNugger nugger;
+	
+	private boolean damaged;
 	
 	private String potatoBullet = "potatobullet.png";
 	
@@ -32,6 +34,11 @@ public class PotatoBullets extends JComponent
 		}
 	}
 	
+	public void setDX(int x)
+	{
+		dx = x;
+	}
+	
 	public void paintComponent (Graphics g)
 	{
 		g.drawImage(image, 0, 0, this);
@@ -48,10 +55,11 @@ public class PotatoBullets extends JComponent
 		return size;
 	}
 	
-	public void damage(ChickenNugger c)
+	public boolean damage(ChickenNugger c)
 	{
 		nugger = c;
 		new Thread(new damage()).start();
+		return damaged;
 	}
 	
 	public class damage implements Runnable
@@ -62,9 +70,14 @@ public class PotatoBullets extends JComponent
 			{
 				if(getRect().intersects(nugger.getRect()))
 				{
-					nugger.setDX(2);
+					damaged = true;
+					nugger.setDX(-2);
 					Thread.sleep(250);
-					nugger.setHP(nugger.getHP() - 10);
+					for (int i = 0; i < 15; i++)
+					{
+						Bars.setHP(Bars.getHP() - 1);
+						Thread.sleep(25);
+					}
 				}
 			}
 			catch (Exception e)
