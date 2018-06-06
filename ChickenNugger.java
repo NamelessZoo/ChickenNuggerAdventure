@@ -16,8 +16,8 @@ public class ChickenNugger extends Character
 	private static boolean punching = false;
 	private static boolean shooting = false;
 	
-	private int frameWidth = 1000;
-	private int frameHeight = 900;
+	private int frameWidth = 1366;
+	private int frameHeight = 768;
 	
 	private BufferedImage image = null;
 	
@@ -31,7 +31,7 @@ public class ChickenNugger extends Character
 	private String chickenNuggerLeftSuperPunch = "CHICKENNUGGERLEFTSUPERPUNCH.png";
 	private String chickenNuggerGun = "nuggetweapon.png";
 	private String chickenNuggerGunLeft = "nuggetweaponleft.png";
-	private String chickenNuggerDead = "deadnugget.jpg";
+	private String chickenNuggerDead = "deadnugget.png";
 	
 	public ChickenNugger(int x, int y)
 	{
@@ -164,6 +164,12 @@ public class ChickenNugger extends Character
 		new Thread(new gainSP()).start();
 	}
 	
+	public void pickItem(Item a)
+	{
+		if (getRect().intersects(a.getRect()))
+			a.effect(this);
+	}
+	
 	public void update()
 	{
 		if ((getX() <= 0 && getDX() < 0) || (getX() >= frameWidth && getDX() > 0))
@@ -195,7 +201,7 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()) && getY() >= Platform.getPlatforms().get(i).getY() + getHeight() && getX() >= Platform.getPlatforms().get(i).getX())
+			if (jumping && getRect().intersects(Platform.getPlatforms().get(i).getRect()) && getY() <= Platform.getPlatforms().get(i).getY() + getHeight() && getX() >= Platform.getPlatforms().get(i).getX())
 			{
 				setDY(0);
 				jumping = false;
@@ -240,7 +246,7 @@ public class ChickenNugger extends Character
 				for(int i = -5; i <= 5; i++)
 				{
 					setDY(i);
-					Thread.sleep(200 - 20*Math.abs(i));
+					Thread.sleep(200 - 5*Math.abs(i));
 					jumping = true;
 				}
 				jumping = false;

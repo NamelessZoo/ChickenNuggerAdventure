@@ -22,7 +22,7 @@ public class TestFrame extends JFrame implements ActionListener
 	public TestFrame()
 	{
 		setBounds(0,0,1920,1080);
-		test = new ChickenNugger(0,200);
+		test = new ChickenNugger(200,600);
 		french = new FrenchFriedMinion(1000,156);
 		bar = new Bars();
 		balls = new ArrayList<Bullet>();
@@ -37,12 +37,13 @@ public class TestFrame extends JFrame implements ActionListener
 		Timer timer = new Timer(10,this);
 		timer.start();
 		juggler.animate();
+		juggler.bombDrop(this);
 		addKeyListener(new KeyListener()
 		{
 			public void keyPressed(KeyEvent e)
 			{
 				if (e.getKeyCode() == KeyEvent.VK_SPACE)
-					test.jumping(200);
+					test.jumping();
 				if (e.getKeyCode() == KeyEvent.VK_A)
 					test.setDX(-3);
 				if (e.getKeyCode() == KeyEvent.VK_D)
@@ -51,14 +52,8 @@ public class TestFrame extends JFrame implements ActionListener
 					test.superMode();
 				if (e.getKeyCode() == KeyEvent.VK_W)
 					test.punching();
-				if (e.getKeyCode() == KeyEvent.VK_R)
-					test.spGain(50);
-				if (e.getKeyCode() == KeyEvent.VK_C)
-					test.healed(10);
 				if (e.getKeyCode() == KeyEvent.VK_X)
 					french.setHP(0);
-				if (e.getKeyCode() == KeyEvent.VK_G)
-					test.shooting();
 				if (e.getKeyCode() == KeyEvent.VK_T){
 					if(ChickenNugger.isShooting()){
 						ball = new Bullet(test.getX()+test.getWidth(), (test.getY() + 100));
@@ -115,6 +110,15 @@ public class TestFrame extends JFrame implements ActionListener
 			{
 				remove(balls.get(i));
 				balls.remove(balls.get(i));
+			}
+		}
+		for (int i = 0; i < juggler.getBombs().size(); i++)
+		{
+			juggler.getBombs().get(i).update();
+			if(juggler.getBombs().get(i).damage(test))
+			{
+				remove(juggler.getBombs().get(i));
+				juggler.getBombs().remove(i);
 			}
 		}
 		repaint();

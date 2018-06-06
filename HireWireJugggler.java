@@ -1,23 +1,29 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 public class HireWireJugggler extends Character
 {
-	private int hp;
+	private static boolean alive = false;
 	
-	private boolean alive = false;
+	private ArrayList<Bomb> bombs;
+	private Bomb bomb;
+	private JFrame frame;
+	
+	private ChickenNugger target;
 	
 	private BufferedImage image;
 	
-	private String pic1 = "highwirejuggler.jpg";
-	private String pic2 = "highwirejuggler - Copy.jpg";
-	private String pic3 = "highwirejuggler - Copy (2).jpg";
-	private String pic4 = "highwirejuggler - Copy (3).jpg";
-	private String pic5 = "highwirejuggler - Copy (4).jpg";
+	private String pic1 = "hwj.png";
+	private String pic2 = "hwj2.png";
+	private String pic3 = "hwj3.png";
+	private String pic4 = "hwj4.png";
+	private String pic5 = "hwj5.png";
 	
 	public HireWireJugggler(int x, int y)
 	{
@@ -31,8 +37,9 @@ public class HireWireJugggler extends Character
 		{
 			e.printStackTrace();
 		}
-		hp = 1000;
+		setHP(1000);
 		alive = true;
+		bombs = new ArrayList<Bomb>();
 	}
 	
 	public void paintComponent(Graphics g)
@@ -46,9 +53,21 @@ public class HireWireJugggler extends Character
 		new Thread(new animate()).start();
 	}
 	
+	public void bombDrop(JFrame good)
+	{
+		frame = good;
+		new Thread(new bomb()).start();
+	}
+	
+	public ArrayList<Bomb> getBombs()
+	{
+		return bombs;
+	}
+	
 	public void update()
 	{
-		setDX((int)(3*Math.random()) - 1);
+		if ((getX() <= 0 && getDX() < 0) || (getX() >= 1920 && getDX() > 0))
+			setDX(0);
 		setLocation(getX() + getDX(), getY() + getDY());
 	}
 	
@@ -70,6 +89,30 @@ public class HireWireJugggler extends Character
 					Thread.sleep(200);
 					image = ImageIO.read(new File(pic5));
 					Thread.sleep(200);
+					setDX((int)(10*Math.random() - 5));
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				new Thread(this).start();
+				System.exit(0);
+			}
+		}
+	}
+	
+	public class bomb implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
+				while(alive)
+				{
+					Thread.sleep((int)(2000*Math.random() + 1));
+					bomb = new Bomb(getX(), getY());
+					bombs.add(bomb);
+					frame.add(bomb);
 				}
 			}
 			catch (Exception e)

@@ -8,34 +8,35 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Bullet extends JComponent
+public class Bomb extends JComponent
 {
-	private int dx = 10;
+	private int dy = 5;
 	
 	private Ellipse2D ball;
 	private Rectangle2D size;
 	
-	private ArrayList<Character> target;
+	private boolean damaged;
 	
-	public Bullet(int x, int y)
+	private ChickenNugger target;
+	
+	public Bomb(int x, int y)
 	{
 		setLocation(x,y);
-		setSize(10,5);
-		target = new ArrayList<Character>();
-		size = new Rectangle2D.Double(getX(), getY(), 10, 5);
+		setSize(20,20);
+		size = new Rectangle2D.Double(getX(), getY(), 20,20);
 	}
 	
 	public void paintComponent(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
-		ball = new Ellipse2D.Double(0,0,10,5);
-		g2.setColor(Color.RED);
+		ball = new Ellipse2D.Double(0,0,20,20);
+		g2.setColor(Color.BLACK);
 		g2.fill(ball);
 	}
 	
-	public void setDX(int x)
+	public void setDY(int y)
 	{
-		dx = x;
+		dy = y;
 	}
 	
 	public Rectangle2D getRect()
@@ -43,17 +44,20 @@ public class Bullet extends JComponent
 		return size;
 	}
 	
-	public void damage(Character a)
+
+	public boolean damage(ChickenNugger a)
 	{
-		target.add(a);
+		target = a;
 		new Thread(new damage()).start();
+		return damaged;
 	}
 	
 	public void update()
 	{
-		setLocation(getX() + dx, getY());
-		size = new Rectangle2D.Double(getX(), getY(), 10, 5);
+		setLocation(getX(), getY() + dy);
+		size = new Rectangle2D.Double(getX(), getY(), 20, 20);
 	}
+	
 	
 	public class damage implements Runnable
 	{
@@ -61,13 +65,13 @@ public class Bullet extends JComponent
 		{
 			try 
 			{
-				for (int i = 0; i < target.size(); i++)
+				if(getRect().intersects(target.getRect()))
 				{
-					if(getRect().intersects(target.get(i).getRect()))
+					damaged = true;
+					for (int i = 0; i < 15; i++)
 					{
-						target.get(i).setDX(2);
-						Thread.sleep(250);
-						target.get(i).setHP(target.get(i).getHP() - 10);
+						Bars.setHP(Bars.getHP() - 1);
+						Thread.sleep(25);
 					}
 				}
 			}

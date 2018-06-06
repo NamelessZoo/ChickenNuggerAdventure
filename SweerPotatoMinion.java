@@ -11,7 +11,7 @@ public class SweerPotatoMinion extends Character
 	
 	private BufferedImage image;
 	
-	private String sweerPotatoMinion = "SweetPotatominion.jpg";
+	private String sweerPotatoMinion = "SweetPotatominion.png";
 	
 	public SweerPotatoMinion(int x, int y)
 	{
