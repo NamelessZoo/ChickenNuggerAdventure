@@ -37,7 +37,7 @@ public class Platform extends JLabel
 
 	}
 	
-	public Platform(int x, int y, int x1, int y1)
+	public Platform(int x, int y, int x1)
 	{
 		super();
 		image = null;
@@ -49,11 +49,49 @@ public class Platform extends JLabel
 		{
 			e1.printStackTrace();
 		}
-
+		ImageIcon image1 = new ImageIcon(image);
 //		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
-		setBounds(x, y, x1, y1);
+		setBounds(x, y, x1, 92);
 		setVisible(true);
-		setIcon((Icon)image);
+		setIcon(image1);
+	}
+	
+	public Platform(int x, int y, String yeahboi)
+	{
+		super();
+		image = null;
+		try
+		{
+			image = ImageIO.read(new File("cityplat.png"));
+		}
+		catch(IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		ImageIcon image1 = new ImageIcon(image);
+//		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
+		setBounds(x, y, image.getWidth(), image.getHeight());
+		setVisible(true);
+		setIcon(image1);
+	}
+	
+	public Platform(int x, int y, int x1, int yeahboi)
+	{
+		super();
+		image = null;
+		try
+		{
+			image = ImageIO.read(new File("cityplat.png"));
+		}
+		catch(IOException e1)
+		{
+			e1.printStackTrace();
+		}
+		ImageIcon image1 = new ImageIcon(image);
+//		base1l.setPreferredSize(new Dimension(base1.getHeight(), base1.getWidth()));
+		setBounds(x, y, x1, image.getHeight());
+		setVisible(true);
+		setIcon(image1);
 	}
 	
 	public Rectangle2D getRect()

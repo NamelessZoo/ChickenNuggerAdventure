@@ -43,7 +43,7 @@ public class Tutorial extends JPanel implements ActionListener
 		tutInfo.setSize(225, 16);
 		tutInfo.setLocation((int)maswid / 2 - tutInfo.getWidth() / 2, (int)mashei/4);
 		tutInfo.setForeground(Color.BLACK);
-		Timer timer = new Timer(10, this);
+		Timer timer = new Timer(1000/60, this);
 		timer.start();
 		in = new Scanner(System.in);
 		
@@ -56,6 +56,7 @@ public class Tutorial extends JPanel implements ActionListener
 		TutRect grassyknoll = new TutRect(mashei, maswid);
 		add(grassyknoll);
 		player = new ChickenNugger(100, 330);
+		player.setHP(100);
 		add(player);
 		add(tutInfo);
 		cont1 = false;

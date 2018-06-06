@@ -67,7 +67,7 @@ public class TutControlScheme implements KeyListener
 			
 			master.removeKeyListener(this);
 			master.pttoFrmCtrlSchm();
-			master.getTutorial().remove(master.getTutorial().getPlayer());
+//			master.getTutorial().remove(master.getTutorial().getPlayer());
 		}
 	}
 

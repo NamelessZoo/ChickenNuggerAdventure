@@ -27,7 +27,7 @@ public class PttoFrmCtrl implements KeyListener
 		}
 		if(e.getKeyCode() == e.VK_A)
 		{
-			player.setDX(-10);
+			player.setDX(-50);
 		}
 		if(e.getKeyCode() == e.VK_S)
 		{
@@ -35,7 +35,7 @@ public class PttoFrmCtrl implements KeyListener
 		}
 		if(e.getKeyCode() == e.VK_D)
 		{
-			player.setDX(10);
+			player.setDX(50);
 		}
 		if(e.getKeyCode() == e.VK_SPACE)
 		{
@@ -43,7 +43,7 @@ public class PttoFrmCtrl implements KeyListener
 		}
 		if(e.getKeyCode() == e.VK_Q)
 		{
-			
+			player.punching();
 		}
 		if(e.getKeyCode() == e.VK_R)
 		{
