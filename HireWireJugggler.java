@@ -23,6 +23,8 @@ public class HireWireJugggler extends Character
 	private String pic4 = "hwj4.png";
 	private String pic5 = "hwj5.png";
 	
+	private int bottom = 500;
+	
 	public HireWireJugggler(int x, int y)
 	{
 		super(x,y);
@@ -75,7 +77,7 @@ public class HireWireJugggler extends Character
 		{
 			try
 			{
-				while(alive)
+				for (int i = 0; i < 60; i++)
 				{
 					image = ImageIO.read(new File(pic1));
 					Thread.sleep(200);
@@ -89,6 +91,13 @@ public class HireWireJugggler extends Character
 					Thread.sleep(200);
 					setDX((int)(10*Math.random() - 5));
 				}
+				setDX(5);
+				Thread.sleep(1000);
+				setDX(0);
+				while (getY() < bottom)
+					setDY(-1);
+				setDY(0);
+				setDX(-20);
 			}
 			catch (Exception e)
 			{
