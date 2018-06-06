@@ -3,15 +3,16 @@ import java.net.URL;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-public class IntroMusic extends JFrame {
+public class IntroMusic extends JPanel {
    
    public IntroMusic() {
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
       this.setTitle("Test Music");
-      this.setSize(300, 200);
       this.setVisible(true);
    
       try {
+         image = ImageIO.read(new File("intro.png"));
+         setSize(image);
          AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("ChickenNugger.wav"));
          Clip clip = AudioSystem.getClip();
          clip.open(audioIn);
@@ -28,4 +29,9 @@ public class IntroMusic extends JFrame {
    public static void main(String[] args) {
       new IntroMusic();
    }
+   public void paintComponent(Graphics g)
+	{
+		g.drawImage(image, 0, 0, this);
+		setSize(image);
+	}
 }
