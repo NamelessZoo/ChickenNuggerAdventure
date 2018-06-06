@@ -47,20 +47,20 @@ public class ChickenNugger extends Character
         {
             image = ImageIO.read(new File(chickenNugger));
             setSize(image);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
-                 Clip clip = AudioSystem.getClip();
-                 clip.open(audioIn);
-                 clip.start();
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
+           // AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
+           //      Clip clip = AudioSystem.getClip();
+           //      clip.open(audioIn);
+          //       clip.start();
+          //     clip.loop(Clip.LOOP_CONTINUOUSLY);
         } 
-              catch (UnsupportedAudioFileException e) 
-        {
-                 e.printStackTrace();
-              } 
-        catch (LineUnavailableException e) 
-        {
-                 e.printStackTrace();
-        } 
+            //  catch (UnsupportedAudioFileException e) 
+      //  {
+         //        e.printStackTrace();
+         //     } 
+      //  catch (LineUnavailableException e) 
+       // {
+       //          e.printStackTrace();
+      //  } 
         catch (IOException e) 
         {
             e.printStackTrace();
@@ -220,15 +220,18 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() <= 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
+			{
 				setDY(0);
-			else if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())))
+		}
+			else if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() >= 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())))
 			{
 				setDY(0);
 				jumping = false;
 			}
-			else if (!jumping)
+			else if (!jumping) {
 				setDY(2);
+			}
 		}
 		if ((getX() <= 0 && getDX() < 0) || (getX() >= frameWidth && getDX() > 0))
 			setLocation(getX(), getY() + getDY());
