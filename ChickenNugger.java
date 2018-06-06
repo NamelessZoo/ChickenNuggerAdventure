@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ChickenNugger extends Character
 {
@@ -34,20 +39,33 @@ public class ChickenNugger extends Character
 	private String chickenNuggerDead = "deadnugget.png";
 	
 	public ChickenNugger(int x, int y)
-	{
-		super(x,y);
-		super.setDX(0);
-		super.setDY(0);
-		try 
-		{
-			image = ImageIO.read(new File(chickenNugger));
-			setSize(image);
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-	}
+    {
+        super(x,y);
+        super.setDX(0);
+        super.setDY(0);
+        try 
+        {
+            image = ImageIO.read(new File(chickenNugger));
+            setSize(image);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
+                 Clip clip = AudioSystem.getClip();
+                 clip.open(audioIn);
+                 clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } 
+              catch (UnsupportedAudioFileException e) 
+        {
+                 e.printStackTrace();
+              } 
+        catch (LineUnavailableException e) 
+        {
+                 e.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
 	
 	public void paintComponent(Graphics g)
 	{
