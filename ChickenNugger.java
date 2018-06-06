@@ -3,10 +3,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
-import java.net.URL;
-import javax.sound.sampled.*;
-import javax.swing.*;
 
 import javax.imageio.ImageIO;
 
@@ -46,19 +42,6 @@ public class ChickenNugger extends Character
 		{
 			image = ImageIO.read(new File(chickenNugger));
 			setSize(image);
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("DERPY PEOPLES MUSIC.wav"));
-         		Clip clip = AudioSystem.getClip();
-         		clip.open(audioIn);
-         		clip.start();
-        		clip.loop(Clip.LOOP_CONTINUOUSLY);
-		} 
-      		catch (UnsupportedAudioFileException e) 
-		{
-         		e.printStackTrace();
-      		} 
-		catch (LineUnavailableException e) 
-		{
-         		e.printStackTrace();
 		} 
 		catch (IOException e) 
 		{
@@ -223,9 +206,13 @@ public class ChickenNugger extends Character
 		}
 		for (int i = 0; i < Platform.getPlatforms().size(); i++)
 		{
-			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() > 0 && getX() < Platform.getPlatforms().get(i).getRect().getX())||(getDX() < 0 && getX() > Platform.getPlatforms().get(i).getRect().getX())))
-				setDX(0);
-			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())||(getDX() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() > 0 && getX() < Platform.getPlatforms().get(i).getRect().getX())))
+				setDX(-1);
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDX() < 0 && getX() > Platform.getPlatforms().get(i).getRect().getX())))	
+				setDX(1);
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() > 0 && getY() < Platform.getPlatforms().get(i).getRect().getY())))
+				setDY(0);
+			if (getRect().intersects(Platform.getPlatforms().get(i).getRect()) && ((getDY() < 0 && getY() > Platform.getPlatforms().get(i).getRect().getY())))
 				setDY(0);
 		}
 	}
@@ -268,7 +255,7 @@ public class ChickenNugger extends Character
 				for(int i = -5; i <= 5; i++)
 				{
 					setDY(i);
-					Thread.sleep(200 - 5*Math.abs(i));
+					Thread.sleep(200 - 20*Math.abs(i));
 				}
 				jumping = false;
 			}
